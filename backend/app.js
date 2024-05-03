@@ -15,9 +15,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL],
+    origin: ["https://todo-pvuc1d7jz-paraboy6969s-projects.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
   })
 );
 
