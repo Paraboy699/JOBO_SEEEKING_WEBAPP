@@ -13,7 +13,7 @@ export const getAllJobs = catchAsyncError(async (req, res, next) => {
 export const postJob = catchAsyncError(async (req, res, next) => {
   const { role } = req.user;
   if (role == "Job Seeker") {
-    return next(new ErrorHandler("You are not authorized to post a job", 401));
+    return next(new ErrorHandler("Job Seeker is not authorized this", 401));
   }
   const {
     title,
@@ -59,5 +59,62 @@ export const postJob = catchAsyncError(async (req, res, next) => {
     success: true,
     message: "Job created successfully !",
     job,
+  });
+});
+
+export const getMyJobs = catchAsyncError(async (req, res, next) => {
+  const { role } = req.user;
+  if (role === "Job Seeker") {
+    return next(
+      new ErrorHandler("Job Seekers are not authorized to access this", 401)
+    );
+  }
+  const myJobs = await Job.find({ postedBy: req.user._id });
+  res.status(200).json({
+    success: true,
+    myJobs,
+  });
+});
+
+export const updateJob = catchAsyncError(async (req, res, next) => {
+  const { role } = req.user;
+  if (role === "Job Seeker") {
+    return next(
+      new ErrorHandler("Job Seekers are not authorized to access this", 401)
+    );
+  }
+  const { id } = req.params;
+  let job = await Job.findById(id);
+  if (!job) {
+    return next(new ErrorHandler("Job not found", 404));
+  }
+  job = await Job.findByIdAndUpdate(id, req.body, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+  res.status(200).json({
+    success: true,
+    message: "Job updated successfully!",
+    job,
+  });
+});
+
+export const deleteJob = catchAsyncError(async (req, res, next) => {
+  const { role } = req.user;
+  if (role === "Job Seeker") {
+    return next(
+      new ErrorHandler("Job Seekers are not authorized to access this", 401)
+    );
+  }
+  const { id } = req.params;
+  let job = await Job.findById(id);
+  if (!job) {
+    return next(new ErrorHandler("Job not found", 404));
+  }
+  job = await Job.findByIdAndDelete(id);
+  res.status(200).json({
+    success: true,
+    message: "Job deleted successfully!",
   });
 });
