@@ -13,13 +13,19 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter your email"],
     unique: true,
-    validate: [validator.isEmail, "Please enter valid email address"],
+    validate: [validator.isEmail, "Please enter a valid email address"],
   },
   phone: {
     type: String,
     required: [true, "Please enter your phone number"],
     unique: true,
     maxLength: [10, "Your phone number cannot exceed 10 characters"],
+    validate: {
+      validator: function (v) {
+        return /^[0-9]{10}$/.test(v);
+      },
+      message: (props) => `${props.value} is not a valid phone number!`,
+    },
   },
   role: {
     type: String,
@@ -48,17 +54,17 @@ userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, 10);
 });
 
-//Comparing password with hashed password
+// Comparing password with hashed password
 
 userSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-//Generating JWT token for authorization
+// Generating JWT token for authorization
 
 userSchema.methods.getJwtToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, {
-    expiresIn: process.env.JWT_EXPIRE,
+    expiresIn: process.env.JWT_EXPIRE || "7d", // Token expires in 7 days by default
   });
 };
 

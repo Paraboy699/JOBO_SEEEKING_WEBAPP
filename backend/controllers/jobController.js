@@ -12,8 +12,10 @@ export const getAllJobs = catchAsyncError(async (req, res, next) => {
 
 export const postJob = catchAsyncError(async (req, res, next) => {
   const { role } = req.user;
-  if (role == "Job Seeker") {
-    return next(new ErrorHandler("Job Seeker is not authorized this", 401));
+  if (role === "Job Seeker") {
+    return next(
+      new ErrorHandler("Job Seekers are not authorized to post jobs", 401)
+    );
   }
   const {
     title,
@@ -29,15 +31,10 @@ export const postJob = catchAsyncError(async (req, res, next) => {
   if (!title || !description || !category || !country || !city || !location) {
     return next(new ErrorHandler("Please provide all job details", 400));
   }
-  if ((!salaryFrom || !salaryTo) && !fixedSalary) {
-    return next(
-      new ErrorHandler("Please either provide salary ranged salary", 400)
-    );
-  }
-  if (salaryFrom && salaryTo && fixedSalary) {
+  if (!((salaryFrom && salaryTo) || fixedSalary)) {
     return next(
       new ErrorHandler(
-        "Please either provide salary ranged salary or fixed salary",
+        "Please either provide salary range or fixed salary",
         400
       )
     );
@@ -55,9 +52,9 @@ export const postJob = catchAsyncError(async (req, res, next) => {
     salaryTo,
     postedBy,
   });
-  res.status(200).json({
+  res.status(201).json({
     success: true,
-    message: "Job created successfully !",
+    message: "Job created successfully!",
     job,
   });
 });
