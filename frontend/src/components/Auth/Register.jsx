@@ -43,10 +43,9 @@ const Register = () => {
     }
   };
 
-  if(isAuthorized){
-    return <Navigate to={'/'}/>
+  if (isAuthorized) {
+    return <Navigate to={"/"} />;
   }
-
 
   return (
     <>
@@ -73,7 +72,7 @@ const Register = () => {
               <div>
                 <input
                   type="text"
-                  placeholder="Zeeshan"
+                  placeholder="Enter your full name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -85,7 +84,7 @@ const Register = () => {
               <div>
                 <input
                   type="email"
-                  placeholder="zk@gmail.com"
+                  placeholder="Enter your email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -96,8 +95,8 @@ const Register = () => {
               <label>Phone Number</label>
               <div>
                 <input
-                  type="number"
-                  placeholder="12345678"
+                  type="tel"
+                  placeholder="Enter your phone number"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 />
@@ -109,7 +108,7 @@ const Register = () => {
               <div>
                 <input
                   type="password"
-                  placeholder="Your Password"
+                  placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -119,11 +118,11 @@ const Register = () => {
             <button type="submit" onClick={handleRegister}>
               Register
             </button>
-            <Link to={"/login"}>Login Now</Link>
+            <Link to={"/login"}>Already have an account? Login</Link>
           </form>
         </div>
         <div className="banner">
-          <img src="/register.png" alt="login" />
+          <img src="/register.png" alt="register" />
         </div>
       </section>
     </>

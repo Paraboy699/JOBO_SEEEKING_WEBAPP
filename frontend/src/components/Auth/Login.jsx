@@ -37,8 +37,8 @@ const Login = () => {
     }
   };
 
-  if(isAuthorized){
-    return <Navigate to={'/'}/>
+  if (isAuthorized) {
+    return <Navigate to={"/"} />;
   }
 
   return (
@@ -66,7 +66,7 @@ const Login = () => {
               <div>
                 <input
                   type="email"
-                  placeholder="zk@gmail.com"
+                  placeholder="Enter your email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -78,7 +78,7 @@ const Login = () => {
               <div>
                 <input
                   type="password"
-                  placeholder="Your Password"
+                  placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -88,7 +88,7 @@ const Login = () => {
             <button type="submit" onClick={handleLogin}>
               Login
             </button>
-            <Link to={"/register"}>Register Now</Link>
+            <Link to={"/register"}>Don't have an account? Register Now</Link>
           </form>
         </div>
         <div className="banner">
