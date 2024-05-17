@@ -18,17 +18,23 @@ const MyApplications = () => {
     try {
       if (user && user.role === "Employer") {
         axios
-          .get("http://localhost:4000/api/v1/application/employer", {
-            withCredentials: true,
-          })
+          .get(
+            "https://jobo-seeeking-webapp.onrender.com/api/v1/application/employer",
+            {
+              withCredentials: true,
+            }
+          )
           .then((res) => {
             setApplications(res.data.applications);
           });
       } else {
         axios
-          .get("http://localhost:4000/api/v1/application/jobseeker", {
-            withCredentials: true,
-          })
+          .get(
+            "https://jobo-seeeking-webapp.onrender.com/api/v1/application/jobseeker",
+            {
+              withCredentials: true,
+            }
+          )
           .then((res) => {
             setApplications(res.data.applications);
           });
@@ -45,9 +51,12 @@ const MyApplications = () => {
   const deleteApplication = (id) => {
     try {
       axios
-        .delete(`http://localhost:4000/api/v1/application/delete/${id}`, {
-          withCredentials: true,
-        })
+        .delete(
+          `https://jobo-seeeking-webapp.onrender.com/api/v1/application/delete/${id}`,
+          {
+            withCredentials: true,
+          }
+        )
         .then((res) => {
           toast.success(res.data.message);
           setApplications((prevApplication) =>
