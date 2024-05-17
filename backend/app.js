@@ -15,8 +15,9 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["https://todo-pvuc1d7jz-paraboy6969s-projects.vercel.app"],
+    origin: "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
   })
 );
 
@@ -30,9 +31,9 @@ app.use(
   })
 );
 
-app.use("/api/v1/users", userRouter);
-app.use("/api/v1/jobs", jobRouter);
-app.use("/api/v1/applications", applicationRouter);
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/job", jobRouter);
+app.use("/api/v1/application", applicationRouter);
 
 dbconnnection();
 

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { Context } from "../../main";
 import { Link } from "react-router-dom";
 import { FaFacebookF, FaYoutube, FaLinkedin } from "react-icons/fa";
@@ -10,10 +10,7 @@ const Footer = () => {
     <footer className={isAuthorized ? "footerShow" : "footerHide"}>
       <div>&copy; All Rights Reserved By CodeWithZeeshu.</div>
       <div>
-        <Link
-          to={"https://www.facebook.com/profile.php?id=100030535123397"}
-          target="_blank"
-        >
+        <Link to={"https://www.facebook.com/profile.php?id=100030535123397"} target="_blank">
           <FaFacebookF />
         </Link>
         <Link to={"https://www.youtube.com/@CodeWithZeeshu"} target="_blank">
