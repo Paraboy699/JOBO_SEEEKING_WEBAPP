@@ -7,6 +7,8 @@ export const sendToken = (user, statusCode, res, message) => {
     httpOnly: true,
     sameSite: "None",
     secure: true,
+    // Add Partitioned attribute if supported
+    partitioned: true,
   };
 
   res.status(statusCode).cookie("token", token, options).json({
